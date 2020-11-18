@@ -4,4 +4,5 @@ from django.http import HttpResponse
 # Create your views here.
 
 def commentsView(request):
-    return HttpResponse('Esta es la app de comments')
+    return render (request, 'comments.html', {})
+    #return HttpResponse('Esta es la app de comments')
