@@ -31,19 +31,14 @@
         </div>
       </nav>
     <div class="container">
-        <h4>
-            Publicaciones
-        </h4>
-        {% for pub in publicaciones %}
-            <ul>
-                <li><a type="submit" class="btn btn-light" href = "{% url 'pub_update' pub.id %}">{{pub}}</a></li>
-            </ul>
-        {% endfor %}
-        <div>
-        <a type="submit" class="btn btn-dark" href = "{% url 'pub_add' %}">Create</a>
-        </div>
+        <h4>Añade una nueva publicación</h4>
+        <form method="POST">
+          {% csrf_token %}
+          {{ form.as_ul }}
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        
     </div>
-
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

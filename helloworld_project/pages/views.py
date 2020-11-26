@@ -1,12 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import View
 from .models import Publication, Autor, Comment
-
-# Create your views here.
-
-#def homePageView(request):
-#    return render (request, 'index.html', {})
+from .forms import PublicationForm
 
 class home(View):
     def get(self, request):
@@ -17,3 +13,35 @@ class home(View):
         
         context = {'publicaciones': publicaciones}
         return render(request, 'index.html', context)
+
+class PublicationAdd(View):
+    def get(self, request):
+        form = PublicationForm()
+        context = {'form': form}
+        return render(request,'publication.html', context)
+    
+    def post(self, request):
+        form = PublicationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+        else:
+            form = PublicationForm()
+            context = {'form': form}
+            return render(request,'publication.html', context)
+
+class PublicationUpdate(View):
+    def get(self,request, id):
+        publicacion = Publication.objects.get(id=id)
+        form = PublicationForm(instance = publicacion)
+        context = {'form': form}
+        return render(request,'publication.html', context)
+
+    def post(self,request, id):
+        form = PublicationForm(request.POST, instance = publicacion)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+        else:
+            context = {'form': form}
+            return render(request,'publication.html', context)
